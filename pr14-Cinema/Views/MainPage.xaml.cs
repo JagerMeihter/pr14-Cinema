@@ -9,7 +9,7 @@ namespace pr14_Cinema.Views
 {
     public partial class MainPage : Page
     {
-        private MainWindow _mainWindow;
+        public MainWindow _mainWindow;
 
         public MainPage(MainWindow mainWindow)
         {
@@ -19,7 +19,7 @@ namespace pr14_Cinema.Views
             LoadGenres();
         }
 
-        private void LoadMovies()
+        public void LoadMovies()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace pr14_Cinema.Views
             }
         }
 
-        private void LoadGenres()
+        public void LoadGenres()
         {
             try
             {
@@ -69,27 +69,27 @@ namespace pr14_Cinema.Views
             }
         }
 
-        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        public void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             ApplyFilters();
         }
 
-        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ApplyFilters();
         }
 
-        private void AgeRatingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void AgeRatingComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ApplyFilters();
         }
 
-        private void GenreComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void GenreComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ApplyFilters();
         }
 
-        private void ApplyFilters()
+        public void ApplyFilters()
         {
             try
             {
@@ -153,7 +153,7 @@ namespace pr14_Cinema.Views
             }
         }
 
-        private void ViewMovieDetails_Click(object sender, RoutedEventArgs e)
+        public void ViewMovieDetails_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
             int movieId = (int)button.Tag;
@@ -161,14 +161,14 @@ namespace pr14_Cinema.Views
             _mainWindow.MainFrame.Navigate(new MoviePage(_mainWindow, movieId));
         }
 
-        private void MovieItem_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        public void MovieItem_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             var border = (Border)sender;
             border.BorderBrush = System.Windows.Media.Brushes.Blue;
             border.BorderThickness = new Thickness(2);
         }
 
-        private void MovieItem_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        public void MovieItem_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             var border = (Border)sender;
             border.BorderBrush = System.Windows.Media.Brushes.LightGray;

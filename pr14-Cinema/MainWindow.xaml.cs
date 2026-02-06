@@ -24,7 +24,7 @@ namespace pr14_Cinema
             UpdateUserInfo();
         }
 
-        private void InitializeDatabase()
+        public void InitializeDatabase()
         {
             try
             {
@@ -48,7 +48,7 @@ namespace pr14_Cinema
             }
         }
 
-        private void SeedTestData(CinemaDbContext context)
+        public void SeedTestData(CinemaDbContext context)
         {
             // Тестовые фильмы
             var movies = new[]
@@ -92,7 +92,7 @@ namespace pr14_Cinema
             context.SaveChanges();
         }
 
-        private void UpdateUserInfo()
+        public void UpdateUserInfo()
         {
             if (CurrentUserId.HasValue)
             {
@@ -110,12 +110,12 @@ namespace pr14_Cinema
             }
         }
 
-        private void HomeBtn_Click(object sender, RoutedEventArgs e)
+        public void HomeBtn_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new MainPage(this));
         }
 
-        private void ProfileBtn_Click(object sender, RoutedEventArgs e)
+        public void ProfileBtn_Click(object sender, RoutedEventArgs e)
         {
             if (CurrentUserId.HasValue)
             {
@@ -128,12 +128,12 @@ namespace pr14_Cinema
             }
         }
 
-        private void LoginBtn_Click(object sender, RoutedEventArgs e)
+        public void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new LoginPage(this));
         }
 
-        private void RegisterBtn_Click(object sender, RoutedEventArgs e)
+        public void RegisterBtn_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new RegisterPage(this));
         }
