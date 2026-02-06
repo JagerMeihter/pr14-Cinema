@@ -26,7 +26,7 @@ namespace pr14_Cinema
 
         public void InitializeDatabase()
         {
-            try
+           /* try
             {
                 using (var context = new CinemaDbContext())
                 {
@@ -45,7 +45,7 @@ namespace pr14_Cinema
             {
                 MessageBox.Show($"Ошибка БД: {ex.Message}", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            }*/
         }
 
         public void SeedTestData(CinemaDbContext context)

@@ -1,5 +1,6 @@
 ﻿using pr14_Cinema.Models;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace pr14_Cinema.Data
 {
@@ -18,7 +19,12 @@ namespace pr14_Cinema.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // Настройка связей
+            // ОТКЛЮЧАЕМ ВСЁ КАСКАДНОЕ УДАЛЕНИЕ ВО ВСЕЙ БАЗЕ
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            // Настройка связей БЕЗ каскадного удаления
+
             modelBuilder.Entity<Session>()
                 .HasRequired(s => s.Movie)
                 .WithMany(m => m.Sessions)
@@ -49,7 +55,7 @@ namespace pr14_Cinema.Data
                 .WithMany()
                 .HasForeignKey(t => t.SeatId);
 
-            // Многие ко многим для Session и Seat (доступные места)
+            // Многие ко многим для Session и Seat - УПРОЩЕННЫЙ ВАРИАНТ
             modelBuilder.Entity<Session>()
                 .HasMany(s => s.AvailableSeats)
                 .WithMany(s => s.Sessions)
@@ -63,4 +69,4 @@ namespace pr14_Cinema.Data
             base.OnModelCreating(modelBuilder);
         }
     }
-}
+    }
