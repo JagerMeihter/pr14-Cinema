@@ -1,9 +1,10 @@
-﻿using System;
+﻿using pr14_Cinema.Data;
+using pr14_Cinema.Models;
+using pr14_Cinema.Views;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows;
-using pr14_Cinema.Data;
-using pr14_Cinema.Views;
 
 namespace pr14_Cinema
 {
@@ -47,7 +48,74 @@ namespace pr14_Cinema
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void CreateDatabaseIfNotExists()
+        {
+            try
+            {
+                using (var context = new CinemaDbContext())
+                {
+                    // ЭТА СТРОКА СОЗДАСТ ВСЕ ТАБЛИЦЫ
+                    bool dbExists = context.Database.Exists();
 
+                    if (!dbExists)
+                    {
+                        MessageBox.Show("Создаю базу данных...", "Информация");
+
+                        // Создаем базу и все таблицы
+                        context.Database.Create();
+
+                        // Добавляем тестовые данные
+                        AddTestData(context);
+
+                        MessageBox.Show("База данных создана успешно! Таблицы: Movies, Halls, Sessions, Users, Seats, Tickets",
+                                      "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("База данных уже существует.", "Информация");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка создания БД: {ex.Message}", "Ошибка",
+                               MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void AddTestData(CinemaDbContext context)
+        {
+            // Простые тестовые данные для проверки
+            if (!context.Movies.Any())
+            {
+                var movie = new Movie
+                {
+                    Title = "Тестовый фильм",
+                    Description = "Описание тестового фильма",
+                    PosterUrl = "https://via.placeholder.com/300x450",
+                    Rating = 7.5,
+                    ReleaseDate = DateTime.Now.AddDays(-30),
+                    AgeRating = "12+",
+                    Duration = 120,
+                    Genre = "Тест"
+                };
+                context.Movies.Add(movie);
+            }
+
+            if (!context.Users.Any())
+            {
+                var user = new User
+                {
+                    Username = "admin",
+                    Password = "123",
+                    Email = "admin@test.ru",
+                    FullName = "Администратор"
+                };
+                context.Users.Add(user);
+            }
+
+            context.SaveChanges();
+        }
         public void SeedTestData(CinemaDbContext context)
         {
             // Тестовые фильмы

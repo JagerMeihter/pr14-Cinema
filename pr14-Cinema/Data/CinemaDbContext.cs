@@ -8,7 +8,8 @@ namespace pr14_Cinema.Data
     {
         public CinemaDbContext() : base("name=CinemaDbContext")
         {
-            Configuration.LazyLoadingEnabled = true;
+
+            Database.SetInitializer(new CreateDatabaseIfNotExists<CinemaDbContext>());
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Movie> Movies { get; set; }
