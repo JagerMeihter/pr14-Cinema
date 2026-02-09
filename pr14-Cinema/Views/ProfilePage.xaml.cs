@@ -81,6 +81,7 @@ namespace pr14_Cinema.Views
                 .Include(t => t.Session.Hall)
                 .Include(t => t.Seat)
                 .Where(t => t.UserId == _currentUser.Id)
+                .OrderByDescending(t => t.PurchaseDate)
                 .ToList()
                 .Select(t => new TicketViewModel
                 {
@@ -88,7 +89,7 @@ namespace pr14_Cinema.Views
                     MovieTitle = t.Session.Movie.Title,
                     SessionDateTime = t.Session.DateTime,
                     HallName = t.Session.Hall.Name,
-                    SeatInfo = $"Ряд {t.Seat.Row}, Место {t.Seat.Number} ({t.Seat.Type})",
+                    SeatInfo = $"Ряд {t.Seat.Row}, Место {t.Seat.Number}",
                     Price = t.Price,
                     Status = GetStatusText(t.Status),
                     PurchaseDate = t.PurchaseDate,
@@ -97,7 +98,11 @@ namespace pr14_Cinema.Views
                 .ToList();
 
             _allTickets = tickets;
-            ApplyFilters();
+            TicketsList.ItemsSource = tickets;
+
+            // Статистика
+            TotalTicketsText.Text = tickets.Count.ToString();
+            TotalSpentText.Text = tickets.Sum(t => t.Price).ToString("N0") + "₽";
         }
 
         private void ApplyFilters()

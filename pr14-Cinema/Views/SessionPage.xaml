@@ -50,7 +50,6 @@
                                                HorizontalAlignment="Center"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
-
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Width="40" Height="40" Margin="5"
@@ -80,7 +79,7 @@
                                                 </Style.Triggers>
                                             </Style>
                                         </Border.Style>
-
+                                        
                                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                             <TextBlock Text="{Binding Row}" 
                                                        HorizontalAlignment="Center"
@@ -91,7 +90,7 @@
                                         </StackPanel>
                                         <Border.InputBindings>
                                             <MouseBinding MouseAction="LeftClick" 
-                                                          Command="{Binding SelectCommand}"/>
+                                            Command="{Binding SelectCommand, Mode=OneTime}"/>
                                         </Border.InputBindings>
                                     </Border>
                                 </DataTemplate>

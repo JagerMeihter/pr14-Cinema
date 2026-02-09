@@ -96,6 +96,15 @@ namespace pr14_Cinema.Views
 
             SeatsGrid.ItemsSource = _seats;
         }
+        public void SeatBorder_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var border = (Border)sender;
+            var seat = border.DataContext as SeatViewModel;
+            if (seat != null)
+            {
+                ToggleSeatSelection(seat);
+            }
+        }
 
         public void ToggleSeatSelection(SeatViewModel seat)
         {
