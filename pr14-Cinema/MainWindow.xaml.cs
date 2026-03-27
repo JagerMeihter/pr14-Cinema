@@ -145,9 +145,9 @@ namespace pr14_Cinema
                 },
                 new Models.Movie
                 {
-                    Title = "Зеленая книга",
-                    Description = "История дружбы пианиста и водителя",
-                    PosterUrl = "https://via.placeholder.com/300x450/00FF00/000000?text=Зеленая+книга",
+                    Title = "Зеленый слоник",
+                    Description = "История дружбы ВЕЛИКОЙ ДРУЖБЫ",
+                    PosterUrl = "https://via.placeholder.com/300x450/00FF00/000000?text=Зеленый+слоник",
                     Rating = 8.2,
                     ReleaseDate = new DateTime(2018, 11, 16),
                     AgeRating = "12+",

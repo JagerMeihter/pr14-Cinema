@@ -17,7 +17,7 @@ namespace pr14_Cinema.Models
         public string Description { get; set; }
 
         [Required]
-        public string PosterUrl { get; set; }
+        public string PosterUrl { get; set; }   // Например: "Images/Posters/oppenheimer.jpg"
 
         [Range(0, 10)]
         public double Rating { get; set; }
@@ -26,13 +26,15 @@ namespace pr14_Cinema.Models
         public DateTime ReleaseDate { get; set; }
 
         [Required]
-        public string AgeRating { get; set; } // "12+", "16+", "18+"
+        [MaxLength(10)]
+        public string AgeRating { get; set; }   // "12+", "16+", "18+"
 
         [Required]
-        public int Duration { get; set; } // в минутах
+        public int Duration { get; set; }       // в минутах
 
         [Required]
-        public string Genre { get; set; } // "Комедия, Драма, Фантастика"
+        [MaxLength(200)]
+        public string Genre { get; set; }
 
         public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
     }

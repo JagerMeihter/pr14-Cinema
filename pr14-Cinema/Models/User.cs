@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Net.Sockets;
 
 namespace pr14_Cinema.Models
 {
@@ -22,9 +21,10 @@ namespace pr14_Cinema.Models
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(150)]
         public string FullName { get; set; }
 
+        [MaxLength(20)]
         public string Phone { get; set; }
 
         public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();

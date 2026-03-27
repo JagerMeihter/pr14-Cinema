@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Net.Sockets;
 
 namespace pr14_Cinema.Models
 {
@@ -25,6 +24,7 @@ namespace pr14_Cinema.Models
         public decimal TicketPrice { get; set; }
 
         public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
-        public virtual ICollection<Seat> AvailableSeats { get; set; } = new List<Seat>();
+
+        // Убрали AvailableSeats — будем вычислять динамически в ViewModel
     }
 }

@@ -5,7 +5,6 @@
              StartupUri="MainWindow.xaml">
 
     <Application.Resources>
-        <!-- ДОЛЖНО БЫТЬ ВНЕ ResourceDictionary -->
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Application.Resources>
 </Application>

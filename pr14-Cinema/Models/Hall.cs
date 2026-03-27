@@ -17,8 +17,9 @@ namespace pr14_Cinema.Models
 
         [Required]
         [MaxLength(50)]
-        public string Type { get; set; } // "Standard", "VIP", "IMAX", "3D"
+        public string Type { get; set; }   // "Standard", "VIP", "IMAX", "3D"
 
+        [MaxLength(500)]
         public string Description { get; set; }
 
         public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();

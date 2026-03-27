@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pr14_Cinema.Models
 {
@@ -20,8 +20,16 @@ namespace pr14_Cinema.Models
 
         [Required]
         [MaxLength(20)]
-        public string Type { get; set; } // "Standard", "VIP", "Disabled"
+        public string Type { get; set; }   // Standard, VIP, Disabled
 
-        public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
+        // ==================== Свойства ТОЛЬКО для UI (не сохраняются в БД) ====================
+        [NotMapped]
+        public bool IsOccupied { get; set; }
+
+        [NotMapped]
+        public bool IsSelected { get; set; }
+
+        [NotMapped]
+        public string DisplayName => $"Ряд {Row}, место {Number}";
     }
 }
