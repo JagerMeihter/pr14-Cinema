@@ -27,6 +27,6 @@ namespace pr14_Cinema.Models
         public decimal Price { get; set; }
 
         [MaxLength(20)]
-        public string Status { get; set; } = "Active";   // "Active", "Used", "Cancelled"
+        public string Status { get; set; } = "Active"; // Active, Used, Cancelled
     }
 }

@@ -2,6 +2,7 @@
 using pr14_Cinema.Models;
 using pr14_Cinema.Views;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows;
@@ -159,7 +160,149 @@ namespace pr14_Cinema
             context.Movies.AddRange(movies);
             context.SaveChanges();
         }
+        public void SeedTestData(CinemaDbContext context)
+        {
+            // ====================== 1. Фильмы (если ещё нет) ======================
+            if (!context.Movies.Any())
+            {
+                var movies = new[]
+                {
+            new Movie
+            {
+                Title = "Интерстеллар",
+                Description = "Фантастический эпос о путешествии через червоточину",
+                PosterUrl = "Images/Posters/interstellar.jpg",   // позже заменишь на свои
+                Rating = 8.6,
+                ReleaseDate = new DateTime(2014, 11, 6),
+                AgeRating = "12+",
+                Duration = 169,
+                Genre = "Фантастика, Драма, Приключения"
+            },
+            new Movie
+            {
+                Title = "Криминальное чтиво",
+                Description = "Культовый фильм Квентина Тарантино",
+                PosterUrl = "Images/Posters/pulp_fiction.jpg",
+                Rating = 8.9,
+                ReleaseDate = new DateTime(1994, 10, 14),
+                AgeRating = "18+",
+                Duration = 154,
+                Genre = "Криминал, Драма"
+            },
+            new Movie
+            {
+                Title = "Дюна: Часть вторая",
+                Description = "Продолжение эпической саги Дени Вильнёва",
+                PosterUrl = "Images/Posters/dune2.jpg",
+                Rating = 8.7,
+                ReleaseDate = DateTime.Now.AddMonths(-2),
+                AgeRating = "16+",
+                Duration = 166,
+                Genre = "Фантастика, Приключения, Драма"
+            }
+        };
 
+                context.Movies.AddRange(movies);
+                context.SaveChanges();
+            }
+
+            // ====================== 2. Залы ======================
+            if (!context.Halls.Any())
+            {
+                var halls = new[]
+                {
+            new Hall
+            {
+                Name = "Зал 1 (Standard)",
+                Capacity = 96,
+                Type = "Standard",
+                Description = "Малый зал для комфортного просмотра"
+            },
+            new Hall
+            {
+                Name = "Зал 2 (Standard)",
+                Capacity = 150,
+                Type = "Standard",
+                Description = "Основной зал"
+            },
+            new Hall
+            {
+                Name = "Зал 3 (VIP)",
+                Capacity = 168,
+                Type = "VIP",
+                Description = "Зал повышенного комфорта с креслами VIP"
+            },
+            new Hall
+            {
+                Name = "Зал 4 (IMAX)",
+                Capacity = 252,
+                Type = "IMAX",
+                Description = "Большой зал с современным оборудованием"
+            }
+        };
+
+                context.Halls.AddRange(halls);
+                context.SaveChanges();
+
+                // ====================== 3. Создание мест для каждого зала ======================
+                foreach (var hall in halls)
+                {
+                    List<Seat> seats = new List<Seat>();
+                    int rows = 0;
+                    int seatsPerRow = 0;
+
+                    switch (hall.Name)
+                    {
+                        case "Зал 1 (Standard)":
+                            rows = 8;
+                            seatsPerRow = 12;
+                            break;
+                        case "Зал 2 (Standard)":
+                            rows = 10;
+                            seatsPerRow = 15;
+                            break;
+                        case "Зал 3 (VIP)":
+                            rows = 12;
+                            seatsPerRow = 14;
+                            break;
+                        case "Зал 4 (IMAX)":
+                            rows = 14;
+                            seatsPerRow = 18;
+                            break;
+                    }
+
+                    for (int row = 1; row <= rows; row++)
+                    {
+                        for (int num = 1; num <= seatsPerRow; num++)
+                        {
+                            string type = "Standard";
+
+                            // VIP места в последних рядах VIP-зала
+                            if (hall.Type == "VIP" && row >= 9)
+                                type = "VIP";
+
+                            // Места для инвалидов (например, в первом ряду)
+                            if (row == 1 && (num == 1 || num == 2))
+                                type = "Disabled";
+
+                            seats.Add(new Seat
+                            {
+                                HallId = hall.Id,
+                                Row = row,
+                                Number = num,
+                                Type = type
+                            });
+                        }
+                    }
+
+                    context.Seats.AddRange(seats);
+                }
+
+                context.SaveChanges();
+                MessageBox.Show($"Создано 4 зала и {context.Seats.Count()} мест!", "Тестовые данные",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
         public void UpdateUserInfo()
         {
             if (CurrentUserId.HasValue)

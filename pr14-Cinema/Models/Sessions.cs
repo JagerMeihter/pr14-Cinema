@@ -24,7 +24,5 @@ namespace pr14_Cinema.Models
         public decimal TicketPrice { get; set; }
 
         public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
-
-        // Убрали AvailableSeats — будем вычислять динамически в ViewModel
     }
 }
